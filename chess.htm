@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table { border-collapse: collapse; margin: 10vh auto }
+        td, th { border: 0px solid #333; width: 30px; height: 30px; text-align: center }
+        .white { background: yellow; }
+        .black { background: orange; }
+    </style>
+</head>
+<body>
+    <table></table>
+    
+    <script>
+        const table = document.querySelector("table")
+        const abc = ' ABCDEFGH'
+    
+        chess(2, 1)
+
+        function chess(l, n) {
+            let kod = ''
+            for (let i = 0; i <= 8; i++) {
+                kod += '<tr>'
+                for (let j = 0; j <= 8; j++) {
+                    let color = (j === 0 || i === 0) ? '' : 
+                                (i + j) % 2 ? 'white' : 'black'
+                    let cell =  i === 0 ? abc[j] :
+                                j === 0 ? i : 
+                                j == l && i == n ? '♞' : (j == l && i == n ? '*' : '');
+
+                    if (j === l && i === n) {
+                        cell = '♞';
+                    } 
+                    else if (Math.abs(j - l) === 2 && Math.abs(i - n) === 1 || Math.abs(j - l) === 1 && Math.abs(i - n) === 2) {
+                    cell = '*';
+                    }
+
+                    kod += `<td onclick="chess(${j}, ${i})" class="${color}">${cell}</td>`
+                }
+                kod += '</tr>'
+            }
+            table.innerHTML = kod
+        }
+    </script>
+</body>
+</html>
